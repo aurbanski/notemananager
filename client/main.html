@@ -1,8 +1,19 @@
 <head>
   <title>notemananager</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
+  <nav class="red">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Note Manager</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="nav-item"><a class="waves-effect waves-light btn" href="#addModal">Add Note</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container">
     <h1>Latest Notes</h1>
     <ul class="collection">
@@ -11,8 +22,30 @@
       {{/each}}
     </ul>
   </div>
+
+  {{> add}}
+
+  <script>
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+  </script>
 </body>
 
 <template name="note" >
-  <li class="collection-item">{{text}}</li>
+  <li class="collection-item">
+    {{text}}
+    <a href="#" class="delete-note secondary-content"><i class="material-icons">close</i></a>
+  </li>
+</template>
+
+<template name="add">
+  <div id="addModal" class="modal">
+      <div class="modal-content">
+        <h3>Add Note</h3>
+        <form class="add-form">
+          <input type="text" name="text" placeholder="Add note ..." />
+        </form>
+      </div>
+    </div>
 </template>
