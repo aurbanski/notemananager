@@ -1,8 +1,13 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Notes } from '../lib/collections'
+import { Notes } from '../lib/collections';
+import { Accounts } from 'meteor/accounts-base';
 
 import './main.html';
+
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_ONLY'
+});
 
 Template.body.helpers({
   notes() {
@@ -17,7 +22,7 @@ Template.add.events({
     const target = event.target;
     const text = target.text.value;
 
-    Notes.insert({text, createdAt: new Date() });
+    Meteor.call('notes.insert', text)
 
     target.text.value = '';
 
@@ -29,7 +34,7 @@ Template.add.events({
 
 Template.note.events({
   'click .delete-note': function() {
-    Notes.remove(this._id)
+    Meteor.call('notes.remove', this)
     return false;
   }
 });
